@@ -2,7 +2,7 @@ package controlador;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import controlador.Excpeciones.*;
-import modelo.Clases.CambioM;
+import modelo.Clases.CambioModelo2;
 import vista.InterrogaV;
 import vista.Menu.Menu;
 import modelo.Clases.*;
@@ -19,8 +19,8 @@ import java.util.*;
 
 public class ImplControlador implements Serializable, Controlador {
 
-    ImplModelo p;
-    private CambioM modelo;
+
+    private CambioModelo2 modelo;
     private InterrogaV vista;
 
 
@@ -133,11 +133,11 @@ public class ImplControlador implements Serializable, Controlador {
 
     public void salir() throws IOException {
 
-        modelo.salir();
+        modelo.salir(vista.getRuta().toString());
 
     }
 
-    public void setModelo(CambioM modelo) {
+    public void setModelo(CambioModelo2 modelo) {
         this.modelo = modelo;
     }
 

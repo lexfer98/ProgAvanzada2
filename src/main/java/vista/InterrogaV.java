@@ -1,6 +1,10 @@
 package vista;
 
+import java.io.File;
+
 public interface InterrogaV {
+
+    File getRuta();
 
     String getNomProyecto();
 
