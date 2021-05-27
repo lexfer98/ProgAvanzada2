@@ -19,7 +19,7 @@ public class ImplModelo implements Serializable, CambioM, InterrogaM {
     private List<Tarea> listaTareas = new ArrayList<>();
     private InformaV vista;
     private ImplModelo p;
-    public ImplModelo() {
+    public ImplModelo()  {
         super();
     }
 
@@ -157,14 +157,14 @@ public class ImplModelo implements Serializable, CambioM, InterrogaM {
         System.out.println("La ruta es:" + ruta);
         FileInputStream fis = new FileInputStream(ruta);
         ObjectInputStream ois = new ObjectInputStream(fis);
-        p = (ImplModelo) ois.readObject();
+        this.p = (ImplModelo) ois.readObject();
         ois.close();
     }
     @Override
     public void salir() throws IOException {
         FileOutputStream fos = new FileOutputStream(nombre);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject( p);
+        oos.writeObject( this.p);
         oos.close();
     }
 
