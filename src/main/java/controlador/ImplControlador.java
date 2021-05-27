@@ -1,6 +1,5 @@
 package controlador;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import controlador.Excpeciones.*;
 import modelo.Clases.CambioModelo2;
 import vista.InterrogaV;

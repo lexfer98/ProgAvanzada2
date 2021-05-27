@@ -464,7 +464,6 @@ public class ImplVista implements InterrogaV {
 
         private void crearPanel() {
             jpNuevaTarea = new JPanel();
-            JPanel panel = new JPanel();
 
             EscuchadorTarea escuchadorTarea = new EscuchadorTarea();
 
@@ -505,8 +504,8 @@ public class ImplVista implements InterrogaV {
 
             costeTarea = new JTextField(10);
             JLabel costeLabel = new JLabel("Coste tarea : ");
-            panel.add(costeLabel);
-            panel.add(costeTarea);
+            jpNuevaTarea.add(costeLabel);
+            jpNuevaTarea.add(costeTarea);
 
 
 
@@ -536,8 +535,7 @@ public class ImplVista implements InterrogaV {
 
             jpNuevaTarea.add(jbAnyade);
             jpNuevaTarea.add(jbVolver);
-            ventana.add(jpNuevaTarea);
-            ventana.add(panel);
+            ventana.getContentPane().add(jpNuevaTarea);
             ventana.getContentPane().setLayout(new BoxLayout(ventana.getContentPane(), BoxLayout.X_AXIS));
 
             jpNuevaTarea.setVisible(true);
@@ -1005,14 +1003,11 @@ public class ImplVista implements InterrogaV {
 
         private void crearPanel() {
             jpSalir = new JPanel();
-            jpSalir.setBackground(Color.YELLOW);
-
             EscuchadorSalir escuchadorSalir = new EscuchadorSalir();
 
 
 
             JButton jbSalir = new JButton("Salir");
-            jbSalir.setBackground(Color.CYAN);
             jbSalir.addActionListener(escuchadorSalir);
 
             jpSalir.add(jbSalir);
