@@ -1,5 +1,6 @@
 package controlador;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import controlador.Excpeciones.*;
 import modelo.Clases.CambioM;
 import vista.InterrogaV;
@@ -24,17 +25,22 @@ public class ImplControlador implements Serializable, Controlador {
 
 
 
-   public void crearProyecto(){
-       String nombre = vista.getNomProyecto();
-       p = new ImplModelo();
-       p.setNombre(nombre);
-   }
-    public void abrirProyecto(String ruta) throws IOException, ClassNotFoundException {
-       FileInputStream fis = new FileInputStream(ruta);
-       ObjectInputStream ois = new ObjectInputStream(fis);
-       p = (ImplModelo) ois.readObject();
-       ois.close();
-   }
+//   public void crearProyecto(){
+//       String nombre = vista.getNomProyecto();
+//       p = new ImplModelo();
+//       p.setNombre(nombre);
+//   }
+//    public void abrirProyecto(String ruta) throws IOException, ClassNotFoundException {
+//       FileInputStream fis = new FileInputStream(ruta);
+//       ObjectInputStream ois = new ObjectInputStream(fis);
+//       p = (ImplModelo) ois.readObject();
+//       ois.close();
+//   }
+
+
+
+    @Override
+
 
     public void altaPersona(){
        String nom = vista.getNomPersona();
@@ -54,8 +60,10 @@ public class ImplControlador implements Serializable, Controlador {
        String fechaIni = vista.getFechaIni();
        LocalDate FechaInicio = LocalDate.parse(fechaIni);
        String fechaFin = vista.getFechaFin();
+       Boolean finalizado = vista.getFinalizado();
        LocalDate FechaFin = LocalDate.parse(fechaFin);
-        boolean finalizado = vista.getFinalizado();
+       String identificador = vista.getIdentificador();
+       int horas = vista.getHoras();
        //Boolean interno = vista.getInterno();
        //Resultado result = new Resultado(identificador, horas, interno);
        double coste = vista.getCoste();
@@ -113,11 +121,21 @@ public class ImplControlador implements Serializable, Controlador {
 
 
     }
-//    public void salir(ImplModelo p) throws IOException {
-//
-//        modelo.salir(p);
-//
-//    }
+    @Override
+    public void crearProyecto(String nombre) throws IOException {
+        modelo.crearProyecto(nombre);
+    }
+
+    @Override
+    public void abrirProyecto(String ruta) throws IOException, ClassNotFoundException {
+        modelo.abrirProyecto(ruta);
+    }
+
+    public void salir() throws IOException {
+
+        modelo.salir();
+
+    }
 
     public void setModelo(CambioM modelo) {
         this.modelo = modelo;
@@ -127,13 +145,4 @@ public class ImplControlador implements Serializable, Controlador {
         this.vista = vista;
     }
 
-//    public void modificarCoste(){
-//        modelo.modificarCoste();
-//    }
-//    public void modificarTipo(){
-//       modelo.modificarTipo();
-//    }
-//    public void setFechaFin(){
-//       modelo.setFechafin();
-//    }
 }

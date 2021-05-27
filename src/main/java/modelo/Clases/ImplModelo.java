@@ -7,10 +7,7 @@ import modelo.Resultados.Resultado;
 import modelo.Strategy.Facturacion;
 import vista.InformaV;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +18,7 @@ public class ImplModelo implements Serializable, CambioM, InterrogaM {
     private ArrayList<Personas> listaPersonas = new ArrayList<>();
     private List<Tarea> listaTareas = new ArrayList<>();
     private InformaV vista;
-
+    private ImplModelo p;
     public ImplModelo() {
         super();
     }
@@ -149,10 +146,25 @@ public class ImplModelo implements Serializable, CambioM, InterrogaM {
         }
     }
 
-    private void salir( ImplModelo p) throws IOException {
-        FileOutputStream fos = new FileOutputStream(p.getNombreP());
+
+
+    public void crearProyecto(String nombre) {
+        p = new ImplModelo();
+        p.setNombre(nombre);
+
+    }
+    public void abrirProyecto(String ruta) throws IOException, ClassNotFoundException {
+        System.out.println("La ruta es:" + ruta);
+        FileInputStream fis = new FileInputStream(ruta);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        p = (ImplModelo) ois.readObject();
+        ois.close();
+    }
+    @Override
+    public void salir() throws IOException {
+        FileOutputStream fos = new FileOutputStream(nombre);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(p);
+        oos.writeObject( p);
         oos.close();
     }
 

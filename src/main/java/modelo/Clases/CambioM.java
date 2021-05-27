@@ -8,6 +8,7 @@ import modelo.Clases.Tarea;
 import modelo.Resultados.Resultado;
 import modelo.Strategy.Facturacion;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public interface CambioM {
@@ -22,5 +23,7 @@ public interface CambioM {
     void listarTareas();
 //    void modificarCoste();
 //    void modificarTipo();
-
+    void crearProyecto(String nombre) throws IOException;
+    void abrirProyecto(String ruta) throws IOException, ClassNotFoundException;
+    void salir() throws IOException;
 }
