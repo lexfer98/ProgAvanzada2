@@ -62,8 +62,8 @@ public class ImplControlador implements Serializable, Controlador {
        String fechaFin = vista.getFechaFin();
        Boolean finalizado = vista.getFinalizado();
        LocalDate FechaFin = LocalDate.parse(fechaFin);
-       String identificador = vista.getIdentificador();
-       int horas = vista.getHoras();
+       //String identificador = vista.getIdentificador();
+       //int horas = vista.getHoras();
        //Boolean interno = vista.getInterno();
        //Resultado result = new Resultado(identificador, horas, interno);
        double coste = vista.getCoste();

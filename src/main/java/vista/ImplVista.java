@@ -51,11 +51,9 @@ public class ImplVista implements InterrogaV {
     JTextField nombreTarea;
     JTextField descripcionTarea;
     JTextField prioridadTarea;
-    JTextField resultadoTarea;
     JTextField fechaIniTarea;
     JTextField fechaFinTarea;
     JTextField costeTarea;
-    JTextField tipoFacTarea;
     JTextField finalizado;
     JTextField identificador;
     JTextField horas;
@@ -64,16 +62,12 @@ public class ImplVista implements InterrogaV {
     JTextField correo;
     JTextField nombreColaborador;
     JTextField porcentaje;
-    JTextField interno;
 
-    //JCheckBox
-    JCheckBox jbDocum;
-    JCheckBox jbProg;
-    JCheckBox jbBiblio;
-    JCheckBox jbPagW;
-    JCheckBox jbConInt;
-    JCheckBox jbDesc;
-    JCheckBox jbUrg;
+
+    JRadioButton jbConInt;
+    JRadioButton jbDesc;
+    JRadioButton jbUrg;
+
 
     public ImplVista() {
     }
@@ -96,7 +90,7 @@ public class ImplVista implements InterrogaV {
             JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
             int returnValue = jfc.showOpenDialog(null);
 
-            ventana = new JFrame("Aplicación");
+            ventana = new JFrame("Proyecto");
 
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = jfc.getSelectedFile();
@@ -203,7 +197,13 @@ public class ImplVista implements InterrogaV {
 
     @Override
     public String getFactura() {
-        return tipoFacTarea.getText();
+        if (jbConInt.isSelected())
+            return jbConInt.getText();
+        if (jbDesc.isSelected())
+            return jbDesc.getText();
+        if (jbUrg.isSelected())
+            return jbUrg.getText();
+        return "No seleccionado";
     }
 
     @Override
@@ -218,17 +218,17 @@ public class ImplVista implements InterrogaV {
 
     @Override
     public File getRuta() {
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        jfc.setDialogTitle("Elige un directorio para guardar el proyecto: ");
-        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        JFileChooser chooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        chooser.setDialogTitle("Elige un directorio en el que guardar el proyecto: ");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-        int returnValue = jfc.showSaveDialog(null);
+        int returnValue = chooser.showSaveDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            if (jfc.getSelectedFile().isDirectory()) {
-                System.out.println("Has seleccionado el directorio: " + jfc.getSelectedFile());
+            if (chooser.getSelectedFile().isDirectory()) {
+                System.out.println("El directorio es: " + chooser.getSelectedFile());
             }
         }
-        return jfc.getSelectedFile();
+        return chooser.getSelectedFile();
     }
 
     class CreaMenuNombreProyecto extends JPanel {
@@ -239,25 +239,18 @@ public class ImplVista implements InterrogaV {
 
         private void crearPanel() {
             jpMenuProyecto = new JPanel();
-            jpMenuProyecto.setBackground(Color.YELLOW);
 
             EscuchadorProyecto escuchadorProyecto = new EscuchadorProyecto();
 
             nombreProyecto = new JTextField(10);
 
             JLabel nombreLabel = new JLabel("Nombre del proyecto: ");
-
             JButton jbCrear = new JButton("Crear");
             jbCrear.addActionListener(escuchadorProyecto);
-            jbCrear.setBackground(Color.CYAN);
-            JButton jbVolver = new JButton("Volver");
-            jbVolver.setBackground(Color.CYAN);
-            jbVolver.addActionListener(escuchadorProyecto);
 
             jpMenuProyecto.add(nombreLabel);
             jpMenuProyecto.add(nombreProyecto);
             jpMenuProyecto.add(jbCrear);
-            jpMenuProyecto.add(jbVolver);
 
             ventana.getContentPane().add(jpMenuProyecto);
             jpMenuProyecto.setVisible(true);
@@ -279,6 +272,7 @@ public class ImplVista implements InterrogaV {
                 }
                 new CreaMenuInicio();
                 cambiarPaneles(jpMenuProyecto, jpMenuInicio);
+
             } else {
                 if (texto.equals("Volver")) {
                     cambiarPaneles(jpMenuProyecto, jpMenuInicio);
@@ -295,77 +289,62 @@ public class ImplVista implements InterrogaV {
 
         private void crearPanel() {
             jpMenuInicio = new JPanel();
-            jpMenuInicio.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Menu Principal"));
-            jpMenuInicio.setBackground(Color.cyan);
+            jpMenuInicio.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Menu "));
 
             EscuchadoraMenu escuchadora = new EscuchadoraMenu();
 
-            JCheckBox jbPersona = new JCheckBox("Dar de alta una persona en el proyecto.");
-            jbPersona.setBackground(Color.YELLOW);
+            JRadioButton jbPersona = new JRadioButton("Dar de alta una persona");
             jbPersona.addActionListener(escuchadora);
             jpMenuInicio.add(jbPersona);
 
-            JCheckBox jbTarea = new JCheckBox("Dar de alta una tarea en el proyecto.");
-            jbTarea.setBackground(Color.orange);
+            JRadioButton jbTarea = new JRadioButton("Dar de alta una tarea");
             jbTarea.addActionListener(escuchadora);
             jpMenuInicio.add(jbTarea);
 
-            JCheckBox jbModificarCoste = new JCheckBox("Modificar el coste de una tarea.");
-            jbModificarCoste.setBackground(Color.RED);
-            jbModificarCoste.addActionListener(escuchadora);
-            jpMenuInicio.add(jbModificarCoste);
 
-            JCheckBox jbModificarTipoFac = new JCheckBox("Modificar el tipo de facturación de una tarea.");
-            jbModificarTipoFac.setBackground(Color.GREEN);
+            JRadioButton jbModificarTipoFac = new JRadioButton("Modificar el tipo de facturación de una tarea.");
             jbModificarTipoFac.addActionListener(escuchadora);
             jpMenuInicio.add(jbModificarTipoFac);
 
-            JCheckBox jbFinalizarTarea = new JCheckBox("Finalizar una tarea.");
-            jbFinalizarTarea.setBackground(Color.BLUE);
+            JRadioButton jbFinalizarTarea = new JRadioButton("Finalizar una tarea.");
             jbFinalizarTarea.addActionListener(escuchadora);
             jpMenuInicio.add(jbFinalizarTarea);
 
-            JCheckBox jbAsignarPersonaTarea = new JCheckBox("Asignar una persona a una tarea.");
-            jbAsignarPersonaTarea.setBackground(Color.YELLOW);
+            JRadioButton jbAsignarPersonaTarea = new JRadioButton("Asignar una persona a una tarea.");
             jbAsignarPersonaTarea.addActionListener(escuchadora);
             jpMenuInicio.add(jbAsignarPersonaTarea);
 
-            JCheckBox jbEliminarPersonaTarea = new JCheckBox("Eliminar una persona de una tarea.");
-            jbEliminarPersonaTarea.setBackground(Color.ORANGE);
+            JRadioButton jbEliminarPersonaTarea = new JRadioButton("Eliminar una persona de una tarea.");
             jbEliminarPersonaTarea.addActionListener(escuchadora);
             jpMenuInicio.add(jbEliminarPersonaTarea);
 
-            JCheckBox jbListarPersonas = new JCheckBox("Listar personas del proyecto.");
-            jbListarPersonas.setBackground(Color.RED);
+            JRadioButton jbListarPersonas = new JRadioButton("Listar personas del proyecto.");
             jbListarPersonas.addActionListener(escuchadora);
             jpMenuInicio.add(jbListarPersonas);
 
-            JCheckBox jbListarTareas = new JCheckBox("Listar tareas del proyecto.");
-            jbListarTareas.setBackground(Color.GREEN);
+            JRadioButton jbListarTareas = new JRadioButton("Listar tareas del proyecto.");
             jbListarTareas.addActionListener(escuchadora);
             jpMenuInicio.add(jbListarTareas);
 
-            JCheckBox jbCosteProyecto = new JCheckBox("Coste total del proyecto.");
-            jbCosteProyecto.setBackground(Color.BLUE);
-            jbCosteProyecto.addActionListener(escuchadora);
-            jpMenuInicio.add(jbCosteProyecto);
+//            JCheckBox jbCosteProyecto = new JCheckBox("Coste total del proyecto.");
+//            jbCosteProyecto.setBackground(Color.BLUE);
+//            jbCosteProyecto.addActionListener(escuchadora);
+//            jpMenuInicio.add(jbCosteProyecto);
 
-            JCheckBox jbSalir = new JCheckBox("Salir.");
-            jbSalir.setBackground(Color.YELLOW);
+            JRadioButton jbSalir = new JRadioButton("Salir.");
             jbSalir.addActionListener(escuchadora);
             jpMenuInicio.add(jbSalir);
 
             ButtonGroup grupo = new ButtonGroup();
             grupo.add(jbPersona);
             grupo.add(jbTarea);
-            grupo.add(jbModificarCoste);
-            grupo.add(jbModificarTipoFac);
             grupo.add(jbFinalizarTarea);
+            grupo.add(jbModificarTipoFac);
             grupo.add(jbAsignarPersonaTarea);
             grupo.add(jbEliminarPersonaTarea);
             grupo.add(jbListarPersonas);
             grupo.add(jbListarTareas);
-            grupo.add(jbCosteProyecto);
+            //grupo.add(jbCosteProyecto);
             grupo.add(jbSalir);
 
             jpMenuInicio.setLayout(new BoxLayout(jpMenuInicio, BoxLayout.PAGE_AXIS));
@@ -381,29 +360,25 @@ public class ImplVista implements InterrogaV {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JCheckBox boton = (JCheckBox) e.getSource();
+            JRadioButton boton = (JRadioButton) e.getSource();
             String texto = boton.getText();
 
             switch (texto) {
-                case "Dar de alta una persona en el proyecto.":
+                case "Dar de alta una persona":
                     new CreaMenuNuevaPersona();
                     cambiarPaneles(jpMenuInicio, jpNuevaPersona);
                     break;
-                case "Dar de alta una tarea en el proyecto.":
+                case "Dar de alta una tarea":
                     new CreaMenuNuevaTarea();
                     cambiarPaneles(jpMenuInicio, jpNuevaTarea);
-                    break;
-                case "Modificar el coste de una tarea.":
-                    new CreaModifCoste();
-                    cambiarPaneles(jpMenuInicio, jpModificarCoste);
-                    break;
-                case "Modificar el tipo de facturación de una tarea.":
-                    new CreaModifTipoFac();
-                    cambiarPaneles(jpMenuInicio, jpModificarFacturacion);
                     break;
                 case "Finalizar una tarea.":
                     new CreaFinalizarTarea();
                     cambiarPaneles(jpMenuInicio, jpFinalizarTarea);
+                    break;
+                case "Modificar el tipo de facturación de una tarea.":
+                    new CreaModifFac();
+                    cambiarPaneles(jpMenuInicio, jpModificarFacturacion);
                     break;
                 case "Asignar una persona a una tarea.":
                     new CreaAsignarPersona();
@@ -421,14 +396,10 @@ public class ImplVista implements InterrogaV {
                     new CreaListarTareas();
                     cambiarPaneles(jpMenuInicio, jpListarTareas);
                     break;
-//                case "Coste total del proyecto.":
-//                    new CreaCosteProyecto();
-//                    cambiarPaneles(jpMenuInicio, jpCosteProyecto);
-//                    break;
-                case "Salir.":
-                    new CreaSalir();
-                    cambiarPaneles(jpMenuInicio, jpSalir);
-                    break;
+                  case "Salir.":
+                      new CreaSalir();
+                      cambiarPaneles(jpMenuInicio, jpSalir);
+                      break;
             }
         }
     }
@@ -441,8 +412,6 @@ public class ImplVista implements InterrogaV {
 
         private void crearPanel() {
             jpNuevaPersona = new JPanel();
-            jpNuevaPersona.setBackground(Color.YELLOW);
-
             EscuchadorPersona escuchadorPersona = new EscuchadorPersona();
 
             nombrePersona = new JTextField(10);
@@ -457,9 +426,7 @@ public class ImplVista implements InterrogaV {
 
             JButton Anyade = new JButton("Añade");
             Anyade.addActionListener(escuchadorPersona);
-            Anyade.setBackground(Color.CYAN);
             JButton jbVolver = new JButton("Volver");
-            jbVolver.setBackground(Color.CYAN);
             jbVolver.addActionListener(escuchadorPersona);
 
             jpNuevaPersona.add(Anyade);
@@ -497,98 +464,81 @@ public class ImplVista implements InterrogaV {
 
         private void crearPanel() {
             jpNuevaTarea = new JPanel();
-            jpNuevaTarea.setBackground(Color.YELLOW);
+            JPanel panel = new JPanel();
 
             EscuchadorTarea escuchadorTarea = new EscuchadorTarea();
 
-            nombreTarea = new JTextField(20);
-            JLabel nombreLabel = new JLabel("NOMBRE: ");
-            jpNuevaTarea.add(nombreLabel);
-            jpNuevaTarea.add(nombreTarea);
+            titulo = new JTextField(10);
+            JLabel tituloLabel = new JLabel("Título Tarea: ");
+            jpNuevaTarea.add(tituloLabel);
+            jpNuevaTarea.add(titulo);
 
-            descripcionTarea = new JTextField(20);
-            JLabel descripLabel = new JLabel("DESCRIPCION: ");
+            descripcionTarea = new JTextField(10);
+            JLabel descripLabel = new JLabel("Descripcion: ");
             jpNuevaTarea.add(descripLabel);
             jpNuevaTarea.add(descripcionTarea);
 
+            responsable = new JTextField(10);
+            JLabel responsableLabel = new JLabel("Responsable: ");
+            jpNuevaTarea.add(responsableLabel);
+            jpNuevaTarea.add(responsable);
+
             prioridadTarea = new JTextField(10);
-            JLabel prioridadLabel = new JLabel("PRIORIDAD (1-5): ");
+            JLabel prioridadLabel = new JLabel("Prioridad (1-5): ");
             jpNuevaTarea.add(prioridadLabel);
             jpNuevaTarea.add(prioridadTarea);
 
-            JLabel resultadoLabel = new JLabel("RESULTADO TAREA: ");
-            jpNuevaTarea.add(resultadoLabel);
+            fechaIniTarea = new JTextField(10);
+            JLabel fechaIniTareaLabel = new JLabel("Fecha Inicio: ");
+            jpNuevaTarea.add(fechaIniTareaLabel);
+            jpNuevaTarea.add(fechaIniTarea);
 
-            jbDocum = new JCheckBox("Documentación.");
-            jbDocum.setBackground(Color.BLUE);
-            jpNuevaTarea.add(jbDocum);
-
-            jbProg = new JCheckBox("Programa.");
-            jbProg.setBackground(Color.ORANGE);
-            jpNuevaTarea.add(jbProg);
-
-            jbBiblio = new JCheckBox("Biblioteca.");
-            jbBiblio.setBackground(Color.RED);
-            jpNuevaTarea.add(jbBiblio);
-
-            jbPagW = new JCheckBox("Página web.");
-            jbPagW.setBackground(Color.GREEN);
-            jpNuevaTarea.add(jbPagW);
-
-            ButtonGroup grupo = new ButtonGroup();
-            grupo.add(jbDocum);
-            grupo.add(jbProg);
-            grupo.add(jbBiblio);
-            grupo.add(jbPagW);
-
-            fechaFinTarea = new JTextField(20);
-            JLabel fechaLabel = new JLabel("FECHA FIN: ");
+            fechaFinTarea = new JTextField(10);
+            JLabel fechaLabel = new JLabel("Fecha Fin: ");
             jpNuevaTarea.add(fechaLabel);
             jpNuevaTarea.add(fechaFinTarea);
 
-            costeTarea = new JTextField(20);
-            JLabel costeLabel = new JLabel("COSTE TAREA: ");
-            jpNuevaTarea.add(costeLabel);
-            jpNuevaTarea.add(costeTarea);
+            finalizado = new JTextField(10);
+            JLabel finalizadoLabel = new JLabel("Finalizado: ");
+            jpNuevaTarea.add(finalizadoLabel);
+            jpNuevaTarea.add(finalizado);
+
+            costeTarea = new JTextField(10);
+            JLabel costeLabel = new JLabel("Coste tarea : ");
+            panel.add(costeLabel);
+            panel.add(costeTarea);
+
+
 
             JLabel factLabel = new JLabel("TIPO DE FACTURACIÓN TAREA: ");
             jpNuevaTarea.add(factLabel);
 
-            jbConInt = new JCheckBox("Consumo Interno.");
-            jbConInt.setBackground(Color.BLUE);
+            jbConInt = new JRadioButton("Consumo Interno.");
             jpNuevaTarea.add(jbConInt);
 
-            jbDesc = new JCheckBox("Descuento.");
-            jbDesc.setBackground(Color.ORANGE);
+            jbDesc = new JRadioButton("Descuento.");
             jpNuevaTarea.add(jbDesc);
 
-            jbUrg = new JCheckBox("Urgente.");
-            jbUrg.setBackground(Color.RED);
+            jbUrg = new JRadioButton("Urgente.");
             jpNuevaTarea.add(jbUrg);
 
-            porcentaje = new JTextField(20);
-            JLabel porcentajeLabel = new JLabel("Introduce porcentaje para Descuento o Urgente: ");
-            jpNuevaTarea.add(porcentajeLabel);
-            jpNuevaTarea.add(porcentajeLabel);
-            jpNuevaTarea.add(porcentaje);
 
             ButtonGroup grupo2 = new ButtonGroup();
             grupo2.add(jbConInt);
             grupo2.add(jbDesc);
             grupo2.add(jbUrg);
 
+
             JButton jbAnyade = new JButton("Añade");
             jbAnyade.addActionListener(escuchadorTarea);
-            jbAnyade.setBackground(Color.CYAN);
             JButton jbVolver = new JButton("Volver");
-            jbVolver.setBackground(Color.CYAN);
             jbVolver.addActionListener(escuchadorTarea);
 
             jpNuevaTarea.add(jbAnyade);
             jpNuevaTarea.add(jbVolver);
-            ventana.getContentPane().add(jpNuevaTarea);
+            ventana.add(jpNuevaTarea);
+            ventana.add(panel);
             ventana.getContentPane().setLayout(new BoxLayout(ventana.getContentPane(), BoxLayout.X_AXIS));
-            ventana.pack();
 
             jpNuevaTarea.setVisible(true);
         }
@@ -611,7 +561,6 @@ public class ImplVista implements InterrogaV {
             }
         }
     }
-
     class CreaListarPersonas extends JPanel {
         public CreaListarPersonas() {
             super();
@@ -620,8 +569,6 @@ public class ImplVista implements InterrogaV {
 
         private void crearPanel() {
             jpListarPersonas = new JPanel();
-            jpListarPersonas.setBackground(Color.YELLOW);
-
             EscuchadorListarPersonas escuchadorListar = new EscuchadorListarPersonas();
 
             ArrayList<Personas> listaPersonas = (ArrayList<Personas>) modelo.getListaPersonas();
@@ -645,7 +592,6 @@ public class ImplVista implements InterrogaV {
             }
 
             JButton jbVolver = new JButton("Volver");
-            jbVolver.setBackground(Color.CYAN);
             jbVolver.addActionListener(escuchadorListar);
             jpListarPersonas.add(jbVolver);
 
@@ -676,8 +622,6 @@ public class ImplVista implements InterrogaV {
 
         private void crearPanel() {
             jpListarTareas = new JPanel();
-            jpListarTareas.setBackground(Color.YELLOW);
-
             EscuchadorListarTareas escuchadorListar = new EscuchadorListarTareas();
 
             ArrayList<Tarea> listaTareas = (ArrayList<Tarea>) modelo.getListaTareas();
@@ -708,7 +652,6 @@ public class ImplVista implements InterrogaV {
             }
 
             JButton jbVolver = new JButton("Volver");
-            jbVolver.setBackground(Color.CYAN);
             jbVolver.addActionListener(escuchadorListar);
             jpListarTareas.add(jbVolver);
 
@@ -717,7 +660,6 @@ public class ImplVista implements InterrogaV {
             ventana.setVisible(true);
         }
     }
-
     class EscuchadorListarTareas implements ActionListener {
 
         @Override
@@ -739,25 +681,22 @@ public class ImplVista implements InterrogaV {
 
         private void crearPanel() {
             jpModificarCoste = new JPanel();
-            jpModificarCoste.setBackground(Color.YELLOW);
 
 //            EscuchadorModifCoste escuchadorModifCoste = new EscuchadorModifCoste();
 
-            nombreTarea = new JTextField(20);
-            JLabel nombreLabel = new JLabel("NOMBRE TAREA: ");
-            jpModificarCoste.add(nombreLabel);
-            jpModificarCoste.add(nombreTarea);
+            titulo = new JTextField(20);
+            JLabel tituloLabel = new JLabel("Nombre tarea: ");
+            jpModificarCoste.add(tituloLabel);
+            jpModificarCoste.add(titulo);
 
             costeTarea = new JTextField(20);
-            JLabel costeLabel = new JLabel("COSTE TAREA: ");
+            JLabel costeLabel = new JLabel("Coste tarea: ");
             jpModificarCoste.add(costeLabel);
             jpModificarCoste.add(costeTarea);
 
             JButton jbCambiar = new JButton("Cambiar");
 //            jbCambiar.addActionListener(escuchadorModifCoste);
-            jbCambiar.setBackground(Color.CYAN);
             JButton jbVolver = new JButton("Volver");
-            jbVolver.setBackground(Color.CYAN);
 //            jbVolver.addActionListener(escuchadorModifCoste);
 
             jpModificarCoste.add(jbCambiar);
@@ -785,15 +724,14 @@ public class ImplVista implements InterrogaV {
 //        }
 //    }
 
-    class CreaModifTipoFac extends JPanel {
-        public CreaModifTipoFac() {
+    class CreaModifFac extends JPanel {
+        public CreaModifFac() {
             super();
             crearPanel();
         }
 
         private void crearPanel() {
             jpModificarFacturacion = new JPanel();
-            jpModificarFacturacion.setBackground(Color.YELLOW);
 
 //            EscuchadorModifTipoFac escuchadorModifTipoFac = new EscuchadorModifTipoFac();
 
@@ -805,16 +743,13 @@ public class ImplVista implements InterrogaV {
             JLabel factLabel = new JLabel("TIPO DE FACTURACIÓN TAREA: ");
             jpModificarFacturacion.add(factLabel);
 
-            jbConInt = new JCheckBox("Consumo Interno.");
-            jbConInt.setBackground(Color.BLUE);
+            jbConInt = new JRadioButton("Consumo Interno.");
             jpModificarFacturacion.add(jbConInt);
 
-            jbDesc = new JCheckBox("Descuento.");
-            jbDesc.setBackground(Color.ORANGE);
+            jbDesc = new JRadioButton("Descuento.");
             jpModificarFacturacion.add(jbDesc);
 
-            jbUrg = new JCheckBox("Urgente.");
-            jbUrg.setBackground(Color.RED);
+            jbUrg = new JRadioButton("Urgente.");
             jpModificarFacturacion.add(jbUrg);
 
             porcentaje = new JTextField(20);
@@ -844,7 +779,7 @@ public class ImplVista implements InterrogaV {
         }
     }
 
-//    class EscuchadorModifTipoFac implements ActionListener {
+//    class EscuchadorModifFac implements ActionListener {
 //
 //        @Override
 //        public void actionPerformed(ActionEvent e) {
@@ -860,6 +795,7 @@ public class ImplVista implements InterrogaV {
 //        }
 //    }
 
+
     class CreaFinalizarTarea extends JPanel {
         public CreaFinalizarTarea() {
             super();
@@ -868,8 +804,6 @@ public class ImplVista implements InterrogaV {
 
         private void crearPanel() {
             jpFinalizarTarea = new JPanel();
-            jpFinalizarTarea.setBackground(Color.YELLOW);
-
             EscuchadorFinalizarTarea escuchadorFinalizarTarea = new EscuchadorFinalizarTarea();
 
             nombreTarea = new JTextField(20);
@@ -884,12 +818,9 @@ public class ImplVista implements InterrogaV {
 
             JButton jbFinalizar = new JButton("Finalizar ahora");
             jbFinalizar.addActionListener(escuchadorFinalizarTarea);
-            jbFinalizar.setBackground(Color.CYAN);
             JButton jbPonerFechaFin = new JButton("Establecer  fecha fin");
             jbPonerFechaFin.addActionListener(escuchadorFinalizarTarea);
-            jbPonerFechaFin.setBackground(Color.CYAN);
             JButton jbVolver = new JButton("Volver");
-            jbVolver.setBackground(Color.CYAN);
             jbVolver.addActionListener(escuchadorFinalizarTarea);
 
             jpFinalizarTarea.add(jbFinalizar);
@@ -933,8 +864,6 @@ public class ImplVista implements InterrogaV {
 
         private void crearPanel() {
             jpAnyadirPersonaTarea = new JPanel();
-            jpAnyadirPersonaTarea.setBackground(Color.YELLOW);
-
             EscuchadorAsignarPersona escuchadorAsignarPersona = new EscuchadorAsignarPersona();
 
             nombreTarea = new JTextField(20);
@@ -942,16 +871,14 @@ public class ImplVista implements InterrogaV {
             jpAnyadirPersonaTarea.add(tareaLabel);
             jpAnyadirPersonaTarea.add(nombreTarea);
 
-            nombrePersona = new JTextField(10);
-            JLabel personaLabel = new JLabel("NOMBRE PERSONA: ");
-            jpAnyadirPersonaTarea.add(personaLabel);
-            jpAnyadirPersonaTarea.add(nombrePersona);
+            nombreColaborador = new JTextField(10);
+            JLabel colaboradorLabel = new JLabel("NOMBRE PERSONA: ");
+            jpAnyadirPersonaTarea.add(colaboradorLabel);
+            jpAnyadirPersonaTarea.add(nombreColaborador);
 
             JButton Anyade = new JButton("Añade");
             Anyade.addActionListener(escuchadorAsignarPersona);
-            Anyade.setBackground(Color.CYAN);
             JButton jbVolver = new JButton("Volver");
-            jbVolver.setBackground(Color.CYAN);
             jbVolver.addActionListener(escuchadorAsignarPersona);
 
             jpAnyadirPersonaTarea.add(Anyade);
@@ -987,8 +914,6 @@ public class ImplVista implements InterrogaV {
 
         private void crearPanel() {
             jpEliminarPersonaTarea = new JPanel();
-            jpEliminarPersonaTarea.setBackground(Color.YELLOW);
-
             EscuchadorEliminarPersona escuchadorEliminarPersona = new EscuchadorEliminarPersona();
 
             nombreTarea = new JTextField(20);
@@ -1003,9 +928,7 @@ public class ImplVista implements InterrogaV {
 
             JButton jbEliminar = new JButton("Eliminar");
             jbEliminar.addActionListener(escuchadorEliminarPersona);
-            jbEliminar.setBackground(Color.CYAN);
             JButton jbVolver = new JButton("Volver");
-            jbVolver.setBackground(Color.CYAN);
             jbVolver.addActionListener(escuchadorEliminarPersona);
 
             jpEliminarPersonaTarea.add(jbEliminar);
