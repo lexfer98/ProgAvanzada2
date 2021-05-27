@@ -1,6 +1,5 @@
 package controlador;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import controlador.Excpeciones.*;
 import modelo.Clases.CambioM;
 import vista.InterrogaV;
@@ -55,10 +54,8 @@ public class ImplControlador implements Serializable, Controlador {
        String fechaIni = vista.getFechaIni();
        LocalDate FechaInicio = LocalDate.parse(fechaIni);
        String fechaFin = vista.getFechaFin();
-       Boolean finalizado = vista.getFinalizado();
        LocalDate FechaFin = LocalDate.parse(fechaFin);
-       String identificador = vista.getIdentificador();
-       int horas = vista.getHoras();
+        boolean finalizado = vista.getFinalizado();
        //Boolean interno = vista.getInterno();
        //Resultado result = new Resultado(identificador, horas, interno);
        double coste = vista.getCoste();
@@ -71,7 +68,7 @@ public class ImplControlador implements Serializable, Controlador {
            fact = new Urgente();
        }
        try {
-           modelo.altaTarea(titulo, descripcion, responsable, prioridad, FechaInicio, FechaFin, finalizado, identificador,
+           modelo.altaTarea(titulo, descripcion, responsable, prioridad, FechaInicio, FechaFin, finalizado,
                     coste, fact);
 
        } catch (FechaNoValidaException e) {
@@ -116,11 +113,11 @@ public class ImplControlador implements Serializable, Controlador {
 
 
     }
-    public void salir(ImplModelo p) throws IOException {
-
-        modelo.salir(p);
-
-    }
+//    public void salir(ImplModelo p) throws IOException {
+//
+//        modelo.salir(p);
+//
+//    }
 
     public void setModelo(CambioM modelo) {
         this.modelo = modelo;
@@ -129,4 +126,14 @@ public class ImplControlador implements Serializable, Controlador {
     public void setVista(InterrogaV vista) {
         this.vista = vista;
     }
+
+//    public void modificarCoste(){
+//        modelo.modificarCoste();
+//    }
+//    public void modificarTipo(){
+//       modelo.modificarTipo();
+//    }
+//    public void setFechaFin(){
+//       modelo.setFechafin();
+//    }
 }

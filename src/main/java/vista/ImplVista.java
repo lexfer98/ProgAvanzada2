@@ -177,8 +177,8 @@ public class ImplVista implements InterrogaV {
     }
 
     @Override
-    public String getFinalizado() {
-        return finalizado.getText();
+    public boolean getFinalizado() {
+        return Boolean.parseBoolean(finalizado.getText());
     }
 
     @Override
@@ -230,7 +230,7 @@ public class ImplVista implements InterrogaV {
 
             nombreProyecto = new JTextField(10);
 
-            JLabel nombreLabel = new JLabel("NOMBRE: ");
+            JLabel nombreLabel = new JLabel("Nombre del proyecto: ");
 
             JButton jbCrear = new JButton("Crear");
             jbCrear.addActionListener(escuchadorProyecto);
@@ -402,14 +402,14 @@ public class ImplVista implements InterrogaV {
                     new CreaListarTareas();
                     cambiarPaneles(jpMenuInicio, jpListarTareas);
                     break;
-                case "Coste total del proyecto.":
-                    new CreaCosteProyecto();
-                    cambiarPaneles(jpMenuInicio, jpCosteProyecto);
-                    break;
-                case "Salir.":
-                    new CreaSalir();
-                    cambiarPaneles(jpMenuInicio, jpSalir);
-                    break;
+//                case "Coste total del proyecto.":
+//                    new CreaCosteProyecto();
+//                    cambiarPaneles(jpMenuInicio, jpCosteProyecto);
+//                    break;
+//                case "Salir.":
+//                    new CreaSalir();
+//                    cambiarPaneles(jpMenuInicio, jpSalir);
+//                    break;
             }
         }
     }
@@ -427,9 +427,14 @@ public class ImplVista implements InterrogaV {
             EscuchadorPersona escuchadorPersona = new EscuchadorPersona();
 
             nombrePersona = new JTextField(10);
-            JLabel nombreLabel = new JLabel("NOMBRE: ");
+            JLabel nombreLabel = new JLabel("Nombre: ");
             jpNuevaPersona.add(nombreLabel);
             jpNuevaPersona.add(nombrePersona);
+
+            correo = new JTextField(20);
+            JLabel correoLabel = new JLabel("Correo: ");
+            jpNuevaPersona.add(correoLabel);
+            jpNuevaPersona.add(correo);
 
             JButton Anyade = new JButton("Añade");
             Anyade.addActionListener(escuchadorPersona);
@@ -717,7 +722,7 @@ public class ImplVista implements InterrogaV {
             jpModificarCoste = new JPanel();
             jpModificarCoste.setBackground(Color.YELLOW);
 
-            EscuchadorModifCoste escuchadorModifCoste = new EscuchadorModifCoste();
+//            EscuchadorModifCoste escuchadorModifCoste = new EscuchadorModifCoste();
 
             nombreTarea = new JTextField(20);
             JLabel nombreLabel = new JLabel("NOMBRE TAREA: ");
@@ -730,11 +735,11 @@ public class ImplVista implements InterrogaV {
             jpModificarCoste.add(costeTarea);
 
             JButton jbCambiar = new JButton("Cambiar");
-            jbCambiar.addActionListener(escuchadorModifCoste);
+//            jbCambiar.addActionListener(escuchadorModifCoste);
             jbCambiar.setBackground(Color.CYAN);
             JButton jbVolver = new JButton("Volver");
             jbVolver.setBackground(Color.CYAN);
-            jbVolver.addActionListener(escuchadorModifCoste);
+//            jbVolver.addActionListener(escuchadorModifCoste);
 
             jpModificarCoste.add(jbCambiar);
             jpModificarCoste.add(jbVolver);
@@ -745,21 +750,21 @@ public class ImplVista implements InterrogaV {
         }
     }
 
-    class EscuchadorModifCoste implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JButton boton = (JButton) e.getSource();
-            String texto = boton.getText();
-
-            if (texto.equals("Cambiar")) {
-                controlador.modificarCoste();
-                cambiarPaneles(jpModificarCoste, jpMenuInicio);
-            } else if (texto.equals("Volver")) {
-                cambiarPaneles(jpModificarCoste, jpMenuInicio);
-            }
-        }
-    }
+//    class EscuchadorModifCoste implements ActionListener {
+//
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            JButton boton = (JButton) e.getSource();
+//            String texto = boton.getText();
+//
+//            if (texto.equals("Cambiar")) {
+//                controlador.modificarCoste();
+//                cambiarPaneles(jpModificarCoste, jpMenuInicio);
+//            } else if (texto.equals("Volver")) {
+//                cambiarPaneles(jpModificarCoste, jpMenuInicio);
+//            }
+//        }
+//    }
 
     class CreaModifTipoFac extends JPanel {
         public CreaModifTipoFac() {
@@ -771,7 +776,7 @@ public class ImplVista implements InterrogaV {
             jpModificarFacturacion = new JPanel();
             jpModificarFacturacion.setBackground(Color.YELLOW);
 
-            EscuchadorModifTipoFac escuchadorModifTipoFac = new EscuchadorModifTipoFac();
+//            EscuchadorModifTipoFac escuchadorModifTipoFac = new EscuchadorModifTipoFac();
 
             nombreTarea = new JTextField(20);
             JLabel nombreLabel = new JLabel("NOMBRE TAREA: ");
@@ -804,15 +809,15 @@ public class ImplVista implements InterrogaV {
             grupo2.add(jbDesc);
             grupo2.add(jbUrg);
 
-            JButton jbCambiar = new JButton("Cambiar");
-            jbCambiar.addActionListener(escuchadorModifTipoFac);
-            jbCambiar.setBackground(Color.CYAN);
-            JButton jbVolver = new JButton("Volver");
-            jbVolver.setBackground(Color.CYAN);
-            jbVolver.addActionListener(escuchadorModifTipoFac);
+//            JButton jbCambiar = new JButton("Cambiar");
+//            jbCambiar.addActionListener(escuchadorModifTipoFac);
+//            jbCambiar.setBackground(Color.CYAN);
+//            JButton jbVolver = new JButton("Volver");
+//            jbVolver.setBackground(Color.CYAN);
+//            jbVolver.addActionListener(escuchadorModifTipoFac);
 
-            jpModificarFacturacion.add(jbCambiar);
-            jpModificarFacturacion.add(jbVolver);
+//            jpModificarFacturacion.add(jbCambiar);
+//            jpModificarFacturacion.add(jbVolver);
 
             ventana.add(jpModificarFacturacion, BorderLayout.CENTER);
             ventana.pack();
@@ -820,21 +825,21 @@ public class ImplVista implements InterrogaV {
         }
     }
 
-    class EscuchadorModifTipoFac implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JButton boton = (JButton) e.getSource();
-            String texto = boton.getText();
-
-            if (texto.equals("Cambiar")) {
-                controlador.modificarTipo();
-                cambiarPaneles(jpModificarFacturacion, jpMenuInicio);
-            } else if (texto.equals("Volver")) {
-                cambiarPaneles(jpModificarFacturacion, jpMenuInicio);
-            }
-        }
-    }
+//    class EscuchadorModifTipoFac implements ActionListener {
+//
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            JButton boton = (JButton) e.getSource();
+//            String texto = boton.getText();
+//
+//            if (texto.equals("Cambiar")) {
+//                controlador.modificarTipo();
+//                cambiarPaneles(jpModificarFacturacion, jpMenuInicio);
+//            } else if (texto.equals("Volver")) {
+//                cambiarPaneles(jpModificarFacturacion, jpMenuInicio);
+//            }
+//        }
+//    }
 
     class CreaFinalizarTarea extends JPanel {
         public CreaFinalizarTarea() {
@@ -890,10 +895,10 @@ public class ImplVista implements InterrogaV {
                     controlador.tareaFinalizada();
                     cambiarPaneles(jpFinalizarTarea, jpMenuInicio);
                     break;
-                case "Establecer fecha fin":
-                    controlador.setFechaFin();
-                    cambiarPaneles(jpFinalizarTarea, jpMenuInicio);
-                    break;
+//                case "Establecer fecha fin":
+//                    controlador.setFechaFin();
+//                    cambiarPaneles(jpFinalizarTarea, jpMenuInicio);
+//                    break;
                 case "Volver":
                     cambiarPaneles(jpFinalizarTarea, jpMenuInicio);
                     break;
@@ -1009,102 +1014,100 @@ public class ImplVista implements InterrogaV {
         }
     }
 
-    class CreaCosteProyecto extends JPanel {
-        public CreaCosteProyecto() {
-            super();
-            crearPanel();
-        }
+//    class CreaCosteProyecto extends JPanel {
+//        public CreaCosteProyecto() {
+//            super();
+//            crearPanel();
+//        }
 
-        private void crearPanel() {
-            jpCosteProyecto = new JPanel();
-            jpCosteProyecto.setBackground(Color.YELLOW);
-
-            EscuchadorCoste escuchadorCoste = new EscuchadorCoste();
-
-            JTextArea textoCoste = new JTextArea();
-            textoCoste.append("El coste total del proyecto es: ");
-            textoCoste.append(Double.toString(modelo.costeProyecto()));
-            jpCosteProyecto.add(textoCoste);
-
-            JButton jbVolver = new JButton("Volver");
-            jbVolver.setBackground(Color.CYAN);
-            jbVolver.addActionListener(escuchadorCoste);
-            jpCosteProyecto.add(jbVolver);
-
-            ventana.add(jpCosteProyecto, BorderLayout.CENTER);
-            ventana.pack();
-            ventana.setVisible(true);
-        }
+//        private void crearPanel() {
+//            jpCosteProyecto = new JPanel();
+//            jpCosteProyecto.setBackground(Color.YELLOW);
+//
+//            EscuchadorCoste escuchadorCoste = new EscuchadorCoste();
+//
+//            JTextArea textoCoste = new JTextArea();
+//            textoCoste.append("El coste total del proyecto es: ");
+//            textoCoste.append(Double.toString(modelo.calcularImporte()));
+//            jpCosteProyecto.add(textoCoste);
+//
+//            JButton jbVolver = new JButton("Volver");
+//            jbVolver.setBackground(Color.CYAN);
+//            jbVolver.addActionListener(escuchadorCoste);
+//            jpCosteProyecto.add(jbVolver);
+//
+//            ventana.add(jpCosteProyecto, BorderLayout.CENTER);
+//            ventana.pack();
+//            ventana.setVisible(true);
+//        }
     }
 
-    class EscuchadorCoste implements ActionListener {
+//    class EscuchadorCoste implements ActionListener {
+//
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            JButton boton = (JButton) e.getSource();
+//            String texto = boton.getText();
+//
+//            if (texto.equals("Volver")) {
+//                cambiarPaneles(jpCosteProyecto, jpMenuInicio);
+//            }
+//        }
+//    }
+//
+//    class CreaSalir extends JPanel {
+//        public CreaSalir() {
+//            super();
+//            crearPanel();
+//        }
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JButton boton = (JButton) e.getSource();
-            String texto = boton.getText();
+//        private void crearPanel() {
+//            jpSalir = new JPanel();
+//            jpSalir.setBackground(Color.YELLOW);
+//
+//            EscuchadorSalir escuchadorSalir = new EscuchadorSalir();
+//
+//            JButton jbGuardar = new JButton("Guardar");
+//            jbGuardar.setBackground(Color.CYAN);
+//            jbGuardar.addActionListener(escuchadorSalir);
+//
+//            JButton jbGuardarNuevo = new JButton("Guardar nuevo");
+//            jbGuardarNuevo.setBackground(Color.CYAN);
+//            jbGuardarNuevo.addActionListener(escuchadorSalir);
+//
+//            JButton jbSalir = new JButton("Salir");
+//            jbSalir.setBackground(Color.CYAN);
+//            jbSalir.addActionListener(escuchadorSalir);
+//
+//            jpSalir.add(jbGuardar);
+//            jpSalir.add(jbGuardarNuevo);
+//            jpSalir.add(jbSalir);
+//
+//            ventana.getContentPane().add(jpSalir);
+//            jpSalir.setVisible(true);
+//        }
+//    }
 
-            if (texto.equals("Volver")) {
-                cambiarPaneles(jpCosteProyecto, jpMenuInicio);
-            }
-        }
-    }
+//    class EscuchadorSalir implements ActionListener {
+//
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            JButton boton = (JButton) e.getSource();
+//            String texto = boton.getText();
+//
+//            switch (texto) {
+//
+//                case "Salir":
+//                    try {
+//                        controlador.salir();
+//                    } catch (IOException ioException) {
+//                        ioException.printStackTrace();
+//                    }
+//                    break;
+//                case "Volver":
+//                    cambiarPaneles(jpSalir, jpMenuInicio);
+//                    break;
+//            }
+//        }
+//    }
 
-    class CreaSalir extends JPanel {
-        public CreaSalir() {
-            super();
-            crearPanel();
-        }
-
-        private void crearPanel() {
-            jpSalir = new JPanel();
-            jpSalir.setBackground(Color.YELLOW);
-
-            EscuchadorSalir escuchadorSalir = new EscuchadorSalir();
-
-            JButton jbGuardar = new JButton("Guardar");
-            jbGuardar.setBackground(Color.CYAN);
-            jbGuardar.addActionListener(escuchadorSalir);
-
-            JButton jbGuardarNuevo = new JButton("Guardar nuevo");
-            jbGuardarNuevo.setBackground(Color.CYAN);
-            jbGuardarNuevo.addActionListener(escuchadorSalir);
-
-            JButton jbSalir = new JButton("Salir");
-            jbSalir.setBackground(Color.CYAN);
-            jbSalir.addActionListener(escuchadorSalir);
-
-            jpSalir.add(jbGuardar);
-            jpSalir.add(jbGuardarNuevo);
-            jpSalir.add(jbSalir);
-
-            ventana.getContentPane().add(jpSalir);
-            jpSalir.setVisible(true);
-        }
-    }
-
-    class EscuchadorSalir implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JButton boton = (JButton) e.getSource();
-            String texto = boton.getText();
-
-            switch (texto) {
-
-                case "Salir":
-                    try {
-                        controlador.salir();
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-                    break;
-                case "Volver":
-                    cambiarPaneles(jpSalir, jpMenuInicio);
-                    break;
-            }
-        }
-    }
-
-
-}

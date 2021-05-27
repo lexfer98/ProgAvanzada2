@@ -56,7 +56,7 @@ class AplicationTest {
         Resultado res = new Resultado("cor2", 5, true);
         Urgente urg = new Urgente();
         Tarea t = new Tarea("Correr", "hay que correr", null, 2, LocalDate.now(),
-                LocalDate.now(),false, res, 10.0, urg);
+                LocalDate.now(),false,  10.0, urg);
 
         ArrayList<Tarea> resultado = new ArrayList<>();
         resultado.add(t);
@@ -65,7 +65,7 @@ class AplicationTest {
         resultado.toArray(vecSol);
 
         p.altaTarea("Correr", "hay que correr", null, 2, LocalDate.now(),
-                LocalDate.now(),false, res, 10.0, urg);
+                LocalDate.now(),false,10.0, urg);
         Tarea[] vecComp = new Tarea[2];
         p.getListaTareas().toArray(vecComp);
 
@@ -84,10 +84,10 @@ class AplicationTest {
         Urgente urg = new Urgente();
         Resultado res = new Resultado("cor2", 5, true);
         Tarea t = new Tarea("Correr", "hay que correr", null, 2, LocalDate.now(),
-                LocalDate.now(),false, res, 10.0, urg);
+                LocalDate.now(),false,  10.0, urg);
 
         p.altaTarea("Correr", "hay que correr", null, 2, LocalDate.now(),
-                LocalDate.now(),false, res, 10.0, urg);
+                LocalDate.now(),false,  10.0, urg);
 
         assertFalse(t.isFinalizado());
 
@@ -110,12 +110,12 @@ class AplicationTest {
         Urgente urg = new Urgente();
         Resultado res = new Resultado("cor2", 5, true);
         Tarea t = new Tarea("Correr", "hay que correr", null, 2, LocalDate.now(),
-                LocalDate.now(),false, res, 10.0, urg);
+                LocalDate.now(),false,  10.0, urg);
 
 
 
         p.altaTarea("Correr", "hay que correr", null, 2, LocalDate.now(),
-                LocalDate.now(),false, res, 10.0, urg);
+                LocalDate.now(),false, 10.0, urg);
 
         p.anyadirColaborador("Correr","Alex");
         t.anyadirColaborador(per);
@@ -143,9 +143,9 @@ class AplicationTest {
         Personas per = new Personas("Alex", "alex@gmail.com");
         Resultado res = new Resultado("cor2", 5, true);
         Tarea t = new Tarea("Correr", "hay que correr", null, 2, LocalDate.now(),
-                LocalDate.now(),false, res, 10.0, urg);
+                LocalDate.now(),false,  10.0, urg);
         p.altaTarea("Correr", "hay que correr", null, 2, LocalDate.now(),
-                LocalDate.now(),false, res, 10.0, urg);
+                LocalDate.now(),false,  10.0, urg);
 
         p.anyadirColaborador("Alex", "correr");
         t.eliminarColaborador(per);

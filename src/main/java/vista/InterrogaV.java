@@ -22,7 +22,7 @@ public interface InterrogaV {
 
     String getFechaFin();
 
-    String getFinalizado();
+    boolean getFinalizado();
 
     String getIdentificador();
 

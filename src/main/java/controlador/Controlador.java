@@ -12,8 +12,11 @@ public interface Controlador {
     void tareaFinalizada();
     void anyadirColaborador();
     void eliminarColaborador();
+//    void modificarCoste();
+//    void modificarTipo();
+//    void setFechaFin();
     void listarPersonas();
     void listarTareas();
-    void salir(ImplModelo p) throws IOException;
+//    void salir(ImplModelo p) throws IOException;
 
 }

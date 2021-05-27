@@ -61,9 +61,9 @@ public class ImplModelo implements Serializable, CambioM, InterrogaM {
 
     public void altaTarea(String titulo, String descripcion, String responsable,
                           int prioridad, LocalDate FechaInicio, LocalDate FechaFin, boolean finalizado,
-                          Resultado result, double coste, Facturacion factura) throws FechaNoValidaException {
+                          double coste, Facturacion factura) throws FechaNoValidaException {
         if (FechaInicio.compareTo(FechaFin) > 0) throw new FechaNoValidaException();
-        Tarea t = new Tarea(titulo, descripcion, responsable, prioridad, FechaInicio, FechaFin, finalizado, result, coste, factura);
+        Tarea t = new Tarea(titulo, descripcion, responsable, prioridad, FechaInicio, FechaFin, finalizado, coste, factura);
         listaTareas.add(t);
     }
 
@@ -144,15 +144,17 @@ public class ImplModelo implements Serializable, CambioM, InterrogaM {
 
             for (int i = 0; i < listaTareas.size(); i++) {
                 System.out.println("Titulo: " + listaTareas.get(i).getTitulo() + ", Personal: " + listaTareas.get(i).getColaboradores().toString() +
-                        ", Finalizada: " + listaTareas.get(i).isFinalizado() + ", Resultado: " + listaTareas.get(i).getResult() + listaTareas.get(i).calcularImporte());
+                        ", Finalizada: " + listaTareas.get(i).isFinalizado() + listaTareas.get(i).calcularImporte());
             }
         }
     }
+
     private void salir( ImplModelo p) throws IOException {
         FileOutputStream fos = new FileOutputStream(p.getNombreP());
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(p);
         oos.close();
     }
+
 
 }

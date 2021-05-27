@@ -21,7 +21,6 @@ public class Tarea implements Serializable, tieneLista, tieneClave {
     private LocalDate FechaInicio;
     private LocalDate FechaFin;
     private boolean finalizado;
-    private Resultado result;
     private List<String> etiquetas = new ArrayList<>();
     private double coste;
     private Facturacion factura;
@@ -44,7 +43,7 @@ public class Tarea implements Serializable, tieneLista, tieneClave {
     }
 
     public Tarea(String titulo, String descripcion, String responsable, int prioridad,
-                 LocalDate FechaInicio, LocalDate FechaFin, boolean finalizado, Resultado result, double coste, Facturacion factura){
+                 LocalDate FechaInicio, LocalDate FechaFin, boolean finalizado, double coste, Facturacion factura){
         this.titulo = titulo;
         this.descripcion= descripcion;
         this.responsable = responsable;
@@ -52,7 +51,6 @@ public class Tarea implements Serializable, tieneLista, tieneClave {
         this.FechaInicio = FechaInicio;
         this.FechaFin = FechaFin;
         this.finalizado = finalizado;
-        this.result = result;
         this.coste = coste;
         this.factura = factura;
 
@@ -130,13 +128,13 @@ public class Tarea implements Serializable, tieneLista, tieneClave {
         this.finalizado = finalizado;
     }
 
-    public Resultado getResult() {
-        return result;
-    }
-
-    public void setResult(Resultado result) {
-        this.result = result;
-    }
+//    public Resultado getResult() {
+//        return result;
+//    }
+//
+//    public void setResult(Resultado result) {
+//        this.result = result;
+//    }
 
     public List<String> getEtiquetas() {
         return etiquetas;
