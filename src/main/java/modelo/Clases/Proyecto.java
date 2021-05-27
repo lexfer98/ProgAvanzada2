@@ -16,8 +16,9 @@ public class Proyecto implements Serializable {
     private List<Personas> listaPersonas = new ArrayList<>();
     private List<Tarea> listaTareas = new ArrayList<>();
 
-    public Proyecto() {
+    public Proyecto(String nombre) {
         super();
+        this.nombre = nombre;
     }
 
     public String getNombre() {

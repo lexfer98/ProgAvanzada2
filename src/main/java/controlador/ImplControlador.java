@@ -122,7 +122,8 @@ public class ImplControlador implements Serializable, Controlador {
 
     }
     @Override
-    public void crearProyecto(String nombre) throws IOException {
+    public void crearProyecto() throws IOException {
+        String nombre = vista.getNomProyecto();
         modelo.crearProyecto(nombre);
     }
 

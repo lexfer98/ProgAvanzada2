@@ -14,7 +14,7 @@ public interface Controlador {
     void listarTareas();
     void salir() throws IOException;
     void abrirProyecto(String ruta) throws IOException, ClassNotFoundException;
-    void crearProyecto(String nombre) throws IOException;
+    void crearProyecto() throws IOException;
 
 
 

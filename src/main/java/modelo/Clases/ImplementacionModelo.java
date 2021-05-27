@@ -82,8 +82,8 @@ public class ImplementacionModelo implements Serializable, CambioModelo2, Interr
 
 
     public void crearProyecto(String nombre) {
-        p = new Proyecto();
-        p.setNombre(nombre);
+        p = new Proyecto(nombre);
+
 
     }
     public void abrirProyecto(String ruta) throws IOException, ClassNotFoundException {
@@ -96,7 +96,9 @@ public class ImplementacionModelo implements Serializable, CambioModelo2, Interr
 
 
     public void salir(String ruta) throws IOException {
+        System.out.println("Ruta Salir" + ruta);
         String nombre = ruta.concat("\\").concat(p.getNombre());
+        System.out.println("Nombre Salir" + nombre);
         FileOutputStream fos = new FileOutputStream(nombre);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(p);

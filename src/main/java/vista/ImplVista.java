@@ -273,7 +273,7 @@ public class ImplVista implements InterrogaV {
 
             if (texto.equals("Crear")) {
                 try {
-                    controlador.crearProyecto(nombreProyecto.toString());
+                    controlador.crearProyecto();
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
